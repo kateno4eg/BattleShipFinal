@@ -52,12 +52,12 @@ class User(Player):
 class Game:
     def __init__(self, size=6):
         self.size = size
-        pl = self.random_board()
-        co = self.random_board()
-        co.hid = True
+        player = self.random_board()
+        computer = self.random_board()
+        computer.hid = True
 
-        self.ai = AI(co, pl)
-        self.us = User(pl, co)
+        self.ai = AI(computer, player)
+        self.user = User(player, computer)
 
     def random_board(self):
         board = None
@@ -91,16 +91,16 @@ class Game:
         num = 0
         while True:
             print("-" * 20)
-            print(f"Доска пользователя:", self.us.board, sep='\n')
+            print(f"Доска пользователя:", self.user.board, sep='\n')
             print("-" * 20)
             print(f"Доска компьютера:", self.ai.board, sep='\n')
             if num % 2 == 0:
                 print("-" * 20)
                 print("Ходит пользователь!")
-                repeat = self.us.move()
+                repeat = self.user.move()
             else:
                 print("-" * 20)
-                print("Ходит компьютер!")
+                print("Ходит компьютер! Вычисление координат ракетного удара ... ")
                 time.sleep(3)
                 repeat = self.ai.move()
             if repeat:
@@ -111,7 +111,7 @@ class Game:
                 print("Пользователь выиграл!")
                 break
 
-            if self.us.board.count == 7:
+            if self.user.board.count == 7:
                 print("-" * 20)
                 print("Компьютер выиграл!")
                 break
