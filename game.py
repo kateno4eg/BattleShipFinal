@@ -1,4 +1,5 @@
 from random import randint
+import time
 from extensions import BoardException, BoardWrongShipException
 from innerlogic import Dot, Board, Ship
 
@@ -100,6 +101,7 @@ class Game:
             else:
                 print("-" * 20)
                 print("Ходит компьютер!")
+                time.sleep(3)
                 repeat = self.ai.move()
             if repeat:
                 num -= 1
