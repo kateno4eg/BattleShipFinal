@@ -87,13 +87,29 @@ class Game:
         print("Приветствуем вас в игре Морской Бой!")
         print("Формат ввода: x y, где x - номер строки, y - номер столбца.")
 
+    @staticmethod
+    def hstack(first, second):
+        first_sp = first.split("\n")
+        second_sp = second.split("\n")
+        max_width = max(map(len, first_sp))
+
+        max_len = max(len(first_sp), len(second_sp))
+        first_sp += [""] * (max_len - len(first_sp))
+        second_sp += [""] * (max_len - len(second_sp))
+
+        text = []
+        for f, s in zip(first_sp, second_sp):
+            text.append(f"{f: <{max_width}}     {s: <{max_width}}")
+
+        return "\n".join(text)
+
     def loop(self):
         num = 0
         while True:
             print("-" * 20)
-            print(f"Доска пользователя:", self.user.board, sep='\n')
-            print("-" * 20)
-            print(f"Доска компьютера:", self.ai.board, sep='\n')
+            user_board = "Доска пользователя:\n\n" + str(self.user.board)
+            ai_board = "Доска компьютера:\n\n" + str(self.ai.board)
+            print(self.hstack(user_board, ai_board))
             if num % 2 == 0:
                 print("-" * 20)
                 print("Ходит пользователь!")
